@@ -8,17 +8,29 @@
         <span class="ml-3 text-xl">MT-Image-Classifier</span>
       </a>
       <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center">
-        <a class="mr-5 hover:text-gray-900 cursor-pointer">圖片辨識(預設)</a>
-        <a class="mr-5 hover:text-gray-900 cursor-pointer">訓練模型</a>
-        <a class="mr-5 hover:text-gray-900 cursor-pointer">圖片辨識(自訂)</a>
+        <router-link
+          v-for="route in routeLists"
+          :key="route.text"
+          class="mr-5 hover:text-gray-900 cursor-pointer"
+          :active-class="'border-b-2 border-primary'"
+          :to="{ name: route.name }"
+        >
+        {{ route.text }}
+        </router-link>
       </nav>
     </div>
   </header>
 </template>
 <script>
 export default {
+  setup () {
+    const routeLists = [
+      { text: '圖片辨識(預設)', name: 'ClassifierDefault' },
+      { text: '訓練模型', name: 'TrainModel' },
+      { text: '圖片辨識(自訂)', name: 'ClassifierCustom' }
+    ]
+
+    return { routeLists }
+  }
 }
 </script>
-<style lang="">
-  
-</style>

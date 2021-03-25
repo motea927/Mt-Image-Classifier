@@ -4,11 +4,22 @@ import Classifier from '/@/views/Classifier.vue'
 const routes = [
   {
     path: '/',
-    redirect: '/Classifier'
+    redirect: '/Classifier/default'
   },
   {
-    path: '/Classifier',
+    path: '/Classifier/default',
+    name: 'ClassifierDefault',
     component: Classifier
+  },
+  {
+    path: '/Classifier/custom',
+    name: 'ClassifierCustom',
+    component: Classifier
+  },
+  {
+    path: '/TrainModel',
+    name: 'TrainModel',
+    component: () => import('/@/views/TrainModel.vue')
   }
 ]
 

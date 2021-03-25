@@ -1,6 +1,6 @@
 <template>
   <section class="text-gray-600 body-font">
-    <div class="container px-5 py-24 mx-auto flex flex-wrap">
+    <div class="container px-5 py-10 mx-auto flex flex-wrap">
       <div class="lg:w-1/2 w-full my-10 lg:my-auto rounded-lg overflow-hidden">
         <img alt="feature" class="object-contain object-center max-h-full w-full rounded" :src="img ? img : 'https://picsum.photos/400'">
       </div>
