@@ -31,8 +31,6 @@
 </template>
 
 <script>
-import { ref, inject } from 'vue'
-
 export default {
   props: {
     img: {
@@ -41,7 +39,7 @@ export default {
     },
     resultLists: {
       type: Array,
-      default: [{
+      default: () => [{
         label: '請上傳圖片',
         confidence: 0.1
       }]

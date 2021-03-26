@@ -11,7 +11,7 @@ import { ref, provide } from 'vue'
 
 export default {
   components: { TheHeader, BaseLoading },
-  setup (props, ctx) {
+  setup () {
     const showLoading = ref(false)
     provide('showLoading', showLoading)
     return { showLoading }

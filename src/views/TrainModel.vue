@@ -1,9 +1,9 @@
 <template lang="">
   <div class="container mx-auto px-5 text-center">
-    <BaseUploadBtn @upload="uploadImg" :multipleFile="true" class="mt-10" />
+    <BaseUploadBtn @upload="uploadImg" :multiple-file="true" class="mt-10" />
     <template v-if="fileLists.length">
       <BaseFileTable
-        :fileLists="fileLists"
+        :file-lists="fileLists"
         @deleteImg="deleteImg"
         class="mt-10"
       />
@@ -35,7 +35,9 @@ export default {
   components: { BaseUploadBtn, BaseFileTable },
   setup () {
     const { trainableClassifier } = useMl5()
-    const classifier = trainableClassifier()
+    let classifier
+    trainableClassifier()
+      .then(c => classifier = c)
     const fileLists = ref([])
 
     const showSaveBtn = ref(false)
@@ -50,7 +52,7 @@ export default {
     }
 
     const addImageToClassifier = (file) => {
-      return new Promise((resolve, reject) => {
+      return new Promise(resolve => {
         const label = file.name.split('_')[0]
         const imageSrc = URL.createObjectURL(file)
         const imageObj = new Image()
@@ -68,6 +70,7 @@ export default {
 
       // Training
       classifier.train((loss) => {
+        console.log(loss)
         if (!loss) showSaveBtn.value = true
       })
     }

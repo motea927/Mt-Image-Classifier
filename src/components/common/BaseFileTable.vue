@@ -35,7 +35,7 @@ export default {
   props: {
     fileLists: {
       type: Array,
-      default: []
+      default: () => []
     }
   },
   emits: ['deleteImg']

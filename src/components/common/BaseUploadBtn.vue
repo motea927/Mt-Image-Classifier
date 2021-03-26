@@ -11,6 +11,7 @@
           class="hidden"
           accept="image/*"
           @change="beforeUpload"
+          @click="reset"
           :multiple="multipleFile"
         />
     </label>
@@ -35,7 +36,11 @@ export default {
         .filter(file => file.size < props.fileLimitSize)
       ctx.emit('upload', fileLists)
     }
-    return { beforeUpload }
+
+    const reset = (e) => {
+      e.target.value = ''
+    }
+    return { beforeUpload, reset }
   }
 }
 </script>

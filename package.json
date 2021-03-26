@@ -4,7 +4,9 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "serve": "vite preview"
+    "serve": "vite preview",
+    "lint": "eslint src --ext .js,.vue,.ts",
+    "lint-fix": "eslint src --fix --ext .js,.vue,.ts"
   },
   "dependencies": {
     "ml5": "^0.6.1",

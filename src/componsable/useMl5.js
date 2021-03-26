@@ -3,19 +3,36 @@ import ml5 from 'ml5'
 
 const useMl5 = () => {
   const showLoading = inject('showLoading')
-  showLoading.value = true
 
   const ready = () => {
     showLoading.value = false
   }
 
-  const getDefaultClassifier = () => ml5.imageClassifier('MobileNet', ready)
-
-  const trainableClassifier = () => {
-    const mobileNetExtractor = ml5.featureExtractor('MobileNet', ready)
-    return mobileNetExtractor.classification()
+  const getDefaultClassifier = async () => {
+    showLoading.value = true
+    const classifier = await ml5.imageClassifier('MobileNet')
+    ready()
+    return classifier
   }
-  return { getDefaultClassifier, trainableClassifier }
+
+  const getCustomClassifier = async () => {
+    showLoading.value = true
+    const mobileNetExtractor = await ml5.featureExtractor('MobileNet', { numLabels: 4 }, ready)
+    const classifier = await mobileNetExtractor.classification()
+    await classifier.load('/@/assets/model/model.json')
+    ready()
+    return classifier
+  }
+
+  const trainableClassifier = async () => {
+    showLoading.value = true
+    const mobileNetExtractor = await ml5.featureExtractor('MobileNet', { numLabels: 4 })
+    const classifier = await mobileNetExtractor.classification()
+    ready()
+    return classifier
+  }
+
+  return { getDefaultClassifier, getCustomClassifier, trainableClassifier }
 }
 
 export default useMl5
