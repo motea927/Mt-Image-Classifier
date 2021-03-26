@@ -3,7 +3,10 @@
     <div
       class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center"
     >
-      <a class="flex font-medium items-center text-gray-900 mb-4 md:mb-0">
+      <a
+        @click="handleClickLogo"
+        class="flex font-medium items-center text-gray-900 mb-4 md:mb-0 hover:opacity-60 cursor-pointer"
+      >
         <svg
           t="1616635695746"
           class="icon"
@@ -53,16 +56,24 @@
     </div>
   </header>
 </template>
+
 <script>
+import { useRouter } from 'vue-router'
 export default {
   setup () {
+    const router = useRouter()
+    const handleClickLogo = () => {
+      console.log(router)
+      router.push({ name: 'ClassifierDefault' })
+    }
+
     const routeLists = [
       { text: '圖片辨識(預設)', name: 'ClassifierDefault' },
       { text: '訓練模型', name: 'TrainModel' },
       { text: '圖片辨識(自訂)', name: 'ClassifierCustom' },
     ]
 
-    return { routeLists }
+    return { handleClickLogo, routeLists }
   },
 }
 </script>

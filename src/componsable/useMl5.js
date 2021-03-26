@@ -23,7 +23,8 @@ const useMl5 = () => {
     loading()
     const mobileNetExtractor = await ml5.featureExtractor('MobileNet', { numLabels: 4 }, ready)
     const classifier = await mobileNetExtractor.classification()
-    await classifier.load('/@/assets/model/model.json')
+    const prefix = import.meta.env.MODE === 'development' ? '/public' : ''
+    await classifier.load(`${prefix}/model/model.json`)
     ready()
     return classifier
   }
