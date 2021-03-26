@@ -1,7 +1,7 @@
 <template>
   <TheHeader />
   <router-view></router-view>
-  <BaseLoading v-show="showLoading" />
+  <BaseLoading :show="showLoading"/>
 </template>
 
 <script>
@@ -13,7 +13,9 @@ export default {
   components: { TheHeader, BaseLoading },
   setup () {
     const showLoading = ref(false)
+    const loadingText = ref('')
     provide('showLoading', showLoading)
+    provide('loadingText', loadingText)
     return { showLoading }
   }
 }

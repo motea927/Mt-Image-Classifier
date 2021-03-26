@@ -29,16 +29,16 @@
 import BaseUploadBtn from '/@/components/common/BaseUploadBtn.vue'
 import BaseFileTable from '/@/components/common/BaseFileTable.vue'
 import useMl5 from '/@/componsable/useMl5'
-import { ref } from 'vue'
+import { ref, inject } from 'vue'
 
 export default {
   components: { BaseUploadBtn, BaseFileTable },
   setup () {
     const { trainableClassifier } = useMl5()
     let classifier
-    trainableClassifier()
-      .then(c => classifier = c)
     const fileLists = ref([])
+    const showLoading = inject('showLoading')
+    const loadingText = inject('loadingText')
 
     const showSaveBtn = ref(false)
     const uploadImg = (paramsFileLists) => {
@@ -51,27 +51,45 @@ export default {
         .filter(file => file.name !== fileName)
     }
 
+    
     const addImageToClassifier = (file) => {
       return new Promise(resolve => {
         const label = file.name.split('_')[0]
         const imageSrc = URL.createObjectURL(file)
         const imageObj = new Image()
         imageObj.onload = () => {
-          classifier.addImage(imageObj, label)
-          resolve()
+          classifier
+            .addImage(imageObj, label)
+            .then(() => resolve())
         }
         imageObj.src = imageSrc
       })
     }
 
     const train = async () => {
+      const labelLists = [...new Set(
+        fileLists.value
+          .map(file => file.name.split('_')[0])
+      )]
+      classifier = await trainableClassifier(labelLists.length)
+
       // Prepare image label & Add to classifier
-      await Promise.all(fileLists.value.map(async (file) => addImageToClassifier(file)))
+      
+      showLoading.value = true
+      loadingText.value = `讀取圖片中...`
+
+      await Promise.all(
+        fileLists.value
+          .map(async (file) => addImageToClassifier(file))
+      )
 
       // Training
       classifier.train((loss) => {
-        console.log(loss)
-        if (!loss) showSaveBtn.value = true
+        loadingText.value = `訓練中, loss: ${loss}`
+        if (!loss) {
+          showSaveBtn.value = true
+          showLoading.value = false
+        }
       })
     }
 

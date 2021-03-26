@@ -1,16 +1,35 @@
 <template>
-  <div class="w-full h-full fixed top-0 left-0 bg-gray-200 opacity-75 z-50 flex justify-center items-center">
+  <div
+		v-show="show"
+		class="w-full h-full fixed top-0 left-0 bg-gray-200 opacity-75 z-50 flex justify-center items-center"
+	>
     <div class="cssload-tetrominos">
       <div class="cssload-tetromino cssload-box1"></div>
       <div class="cssload-tetromino cssload-box2"></div>
       <div class="cssload-tetromino cssload-box3"></div>
       <div class="cssload-tetromino cssload-box4"></div>
     </div>
+		<p class="mt-48 font-medium">{{ loadingText }}</p>
   </div>
 </template>
+
 <script>
+import { inject, watchEffect } from 'vue'
+
 export default {
-  
+	props: {
+		show: {
+			type: Boolean,
+			default: false
+		}
+	},
+  setup (props) {
+		const loadingText = inject('loadingText')
+		watchEffect(() => {
+			if (!props.show) loadingText.value = ''
+		})
+		return { loadingText }
+	}
 }
 </script>
 
