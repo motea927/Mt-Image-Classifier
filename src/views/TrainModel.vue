@@ -1,5 +1,5 @@
-<template lang="">
-  <div class="container mx-auto px-5 text-center">
+<template>
+  <div class="container px-5 mx-auto text-center">
     <BaseUploadBtn @upload="uploadImg" :multiple-file="true" class="mt-10" />
     <template v-if="fileLists.length">
       <BaseFileTable
@@ -8,7 +8,7 @@
         class="mt-10"
       />
       <button
-        class="bg-primary border border-primary px-4 py-6 rounded text-white cursor-pointer hover:bg-white hover:text-primary shadow-lg my-10 mx-2"
+        class="px-4 py-6 mx-2 my-10 text-white border rounded shadow-lg cursor-pointer  bg-primary border-primary hover:bg-white hover:text-primary"
         @click="train"
       >
         開始訓練
@@ -16,7 +16,7 @@
 
       <button
         v-if="showSaveBtn"
-        class="bg-primary border border-primary px-4 py-6 rounded text-white cursor-pointer hover:bg-white hover:text-primary shadow-lg my-10 mx-2"
+        class="px-4 py-6 mx-2 my-10 text-white border rounded shadow-lg cursor-pointer  bg-primary border-primary hover:bg-white hover:text-primary"
         @click="saveModel"
       >
         保存模型
@@ -33,7 +33,7 @@ import { ref, inject } from 'vue'
 
 export default {
   components: { BaseUploadBtn, BaseFileTable },
-  setup () {
+  setup() {
     const { trainableClassifier } = useMl5()
     let classifier
     const fileLists = ref([])
@@ -47,40 +47,34 @@ export default {
     }
 
     const deleteImg = (fileName) => {
-      fileLists.value = fileLists.value
-        .filter(file => file.name !== fileName)
+      fileLists.value = fileLists.value.filter((file) => file.name !== fileName)
     }
 
-    
     const addImageToClassifier = (file) => {
-      return new Promise(resolve => {
+      return new Promise((resolve) => {
         const label = file.name.split('_')[0]
         const imageSrc = URL.createObjectURL(file)
         const imageObj = new Image()
         imageObj.onload = () => {
-          classifier
-            .addImage(imageObj, label)
-            .then(() => resolve())
+          classifier.addImage(imageObj, label).then(() => resolve())
         }
         imageObj.src = imageSrc
       })
     }
 
     const train = async () => {
-      const labelLists = [...new Set(
-        fileLists.value
-          .map(file => file.name.split('_')[0])
-      )]
+      const labelLists = [
+        ...new Set(fileLists.value.map((file) => file.name.split('_')[0])),
+      ]
       classifier = await trainableClassifier(labelLists.length)
 
       // Prepare image label & Add to classifier
-      
+
       showLoading.value = true
       loadingText.value = `讀取圖片中...`
 
       await Promise.all(
-        fileLists.value
-          .map(async (file) => addImageToClassifier(file))
+        fileLists.value.map(async (file) => addImageToClassifier(file))
       )
 
       // Training
@@ -96,9 +90,7 @@ export default {
     const saveModel = () => classifier.save()
 
     return { uploadImg, fileLists, deleteImg, train, showSaveBtn, saveModel }
-  }
+  },
 }
 </script>
-<style lang="">
-  
-</style>
+<style></style>

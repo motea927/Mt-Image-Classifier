@@ -1,7 +1,7 @@
 <template>
   <TheHeader />
   <router-view></router-view>
-  <BaseLoading :show="showLoading"/>
+  <BaseLoading :show="showLoading" />
 </template>
 
 <script>
@@ -11,13 +11,13 @@ import { ref, provide } from 'vue'
 
 export default {
   components: { TheHeader, BaseLoading },
-  setup () {
+  setup() {
     const showLoading = ref(false)
     const loadingText = ref('')
     provide('showLoading', showLoading)
     provide('loadingText', loadingText)
     return { showLoading }
-  }
+  },
 }
 </script>
 

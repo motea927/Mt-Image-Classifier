@@ -1,10 +1,28 @@
 <template>
-  <table class="w-full flex flex-row flex-no-wrap sm:bg-white rounded-lg overflow-hidden sm:shadow-lg">
+  <table
+    class="
+      w-full
+      flex flex-row flex-no-wrap
+      sm:bg-white
+      rounded-lg
+      overflow-hidden
+      sm:shadow-lg
+    "
+  >
     <thead class="text-white text-center">
       <tr
         v-for="i in fileLists.length"
         :key="i"
-        class="bg-primary flex flex-col flex-no wrap sm:table-row rounded-l-lg sm:rounded-none mb-2 sm:mb-0"
+        class="
+          bg-primary
+          flex flex-col flex-no
+          wrap
+          sm:table-row
+          rounded-l-lg
+          sm:rounded-none
+          mb-2
+          sm:mb-0
+        "
       >
         <th class="p-3">檔名</th>
         <th class="p-3">大小</th>
@@ -17,10 +35,22 @@
         :key="index"
         class="flex flex-col flex-no wrap sm:table-row mb-2 sm:mb-0"
       >
-        <td class="border-grey-light border hover:bg-gray-100 p-3">{{ file.name }}</td>
-        <td class="border-grey-light border hover:bg-gray-100 p-3 truncate">{{ file.size }} kb</td>
+        <td class="border-grey-light border hover:bg-gray-100 p-3">
+          {{ file.name }}
+        </td>
+        <td class="border-grey-light border hover:bg-gray-100 p-3 truncate">
+          {{ file.size }} kb
+        </td>
         <td
-          class="border-grey-light border hover:bg-gray-100 p-3 text-red-400 hover:text-red-600 hover:font-medium cursor-pointer"
+          class="
+            border-grey-light border
+            hover:bg-gray-100
+            p-3
+            text-red-400
+            hover:text-red-600
+            hover:font-medium
+            cursor-pointer
+          "
           @click="$emit('deleteImg', file.name)"
         >
           Delete
@@ -35,10 +65,10 @@ export default {
   props: {
     fileLists: {
       type: Array,
-      default: () => []
-    }
+      default: () => [],
+    },
   },
-  emits: ['deleteImg']
+  emits: ['deleteImg'],
 }
 </script>
 
@@ -58,6 +88,6 @@ td:not(:last-child) {
 }
 
 th:not(:last-child) {
-  border-bottom: 2px solid rgba(0, 0, 0, .1);
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
 }
 </style>

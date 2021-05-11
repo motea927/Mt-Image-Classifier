@@ -4,28 +4,28 @@ import Classifier from '/@/views/Classifier.vue'
 const routes = [
   {
     path: '/',
-    redirect: '/Classifier/default'
+    redirect: '/Classifier/default',
   },
   {
     path: '/Classifier/default',
     name: 'ClassifierDefault',
-    component: Classifier
+    component: Classifier,
   },
   {
     path: '/Classifier/custom',
     name: 'ClassifierCustom',
-    component: Classifier
+    component: Classifier,
   },
   {
     path: '/TrainModel',
     name: 'TrainModel',
-    component: () => import('/@/views/TrainModel.vue')
-  }
+    component: () => import('/@/views/TrainModel.vue'),
+  },
 ]
 
 const router = createRouter({
   history: createWebHistory(),
-  routes
+  routes,
 })
 
 export default router

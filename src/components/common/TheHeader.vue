@@ -1,11 +1,27 @@
 <template>
   <header class="text-gray-600 border-b">
     <div
-      class="container flex flex-col flex-wrap items-center p-5 mx-auto  md:flex-row"
+      class="
+        container
+        flex flex-col flex-wrap
+        items-center
+        p-5
+        mx-auto
+        md:flex-row
+      "
     >
       <a
         @click="handleClickLogo"
-        class="flex items-center mb-4 font-medium text-gray-900 cursor-pointer  md:mb-0 hover:opacity-60"
+        class="
+          flex
+          items-center
+          mb-4
+          font-medium
+          text-gray-900
+          cursor-pointer
+          md:mb-0
+          hover:opacity-60
+        "
       >
         <svg
           t="1616635695746"
@@ -58,21 +74,21 @@
 </template>
 
 <script>
-  import { useRouter } from 'vue-router'
-  export default {
-    setup() {
-      const router = useRouter()
-      const handleClickLogo = () => {
-        router.push({ name: 'ClassifierDefault' })
-      }
-
-      const routeLists = [
-        { text: '圖片辨識(預設)', name: 'ClassifierDefault' },
-        { text: '訓練模型', name: 'TrainModel' },
-        { text: '圖片辨識(自訂)', name: 'ClassifierCustom' }
-      ]
-
-      return { handleClickLogo, routeLists }
+import { useRouter } from 'vue-router'
+export default {
+  setup() {
+    const router = useRouter()
+    const handleClickLogo = () => {
+      router.push({ name: 'ClassifierDefault' })
     }
-  }
+
+    const routeLists = [
+      { text: '圖片辨識(預設)', name: 'ClassifierDefault' },
+      { text: '訓練模型', name: 'TrainModel' },
+      { text: '圖片辨識(自訂)', name: 'ClassifierCustom' },
+    ]
+
+    return { handleClickLogo, routeLists }
+  },
+}
 </script>

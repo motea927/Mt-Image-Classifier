@@ -22,7 +22,7 @@ const useMl5 = () => {
   const getCustomClassifier = async () => {
     loading()
     const mobileNetExtractor = await ml5.featureExtractor('MobileNet', {
-      numLabels: 4
+      numLabels: 4,
     })
     const classifier = await mobileNetExtractor.classification()
     const prefix = import.meta.env.MODE === 'development' ? '/public' : ''
@@ -31,10 +31,10 @@ const useMl5 = () => {
     return classifier
   }
 
-  const trainableClassifier = async numLabels => {
+  const trainableClassifier = async (numLabels) => {
     loading()
     const mobileNetExtractor = await ml5.featureExtractor('MobileNet', {
-      numLabels
+      numLabels,
     })
     const classifier = await mobileNetExtractor.classification()
     ready()
