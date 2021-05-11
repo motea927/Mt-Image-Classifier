@@ -1,11 +1,11 @@
 <template>
   <header class="text-gray-600 border-b">
     <div
-      class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center"
+      class="container flex flex-col flex-wrap items-center p-5 mx-auto  md:flex-row"
     >
       <a
         @click="handleClickLogo"
-        class="flex font-medium items-center text-gray-900 mb-4 md:mb-0 hover:opacity-60 cursor-pointer"
+        class="flex items-center mb-4 font-medium text-gray-900 cursor-pointer  md:mb-0 hover:opacity-60"
       >
         <svg
           t="1616635695746"
@@ -41,12 +41,12 @@
         <span class="ml-3 text-xl">Mt-Image-Classifier</span>
       </a>
       <nav
-        class="md:ml-auto flex flex-wrap items-center text-base justify-center"
+        class="flex flex-wrap items-center justify-center text-base md:ml-auto"
       >
         <router-link
           v-for="route in routeLists"
           :key="route.text"
-          class="mr-5 hover:text-gray-900 cursor-pointer"
+          class="mr-5 cursor-pointer hover:text-gray-900"
           :active-class="'border-b-2 border-primary'"
           :to="{ name: route.name }"
         >
@@ -58,22 +58,21 @@
 </template>
 
 <script>
-import { useRouter } from 'vue-router'
-export default {
-  setup () {
-    const router = useRouter()
-    const handleClickLogo = () => {
-      console.log(router)
-      router.push({ name: 'ClassifierDefault' })
+  import { useRouter } from 'vue-router'
+  export default {
+    setup() {
+      const router = useRouter()
+      const handleClickLogo = () => {
+        router.push({ name: 'ClassifierDefault' })
+      }
+
+      const routeLists = [
+        { text: '圖片辨識(預設)', name: 'ClassifierDefault' },
+        { text: '訓練模型', name: 'TrainModel' },
+        { text: '圖片辨識(自訂)', name: 'ClassifierCustom' }
+      ]
+
+      return { handleClickLogo, routeLists }
     }
-
-    const routeLists = [
-      { text: '圖片辨識(預設)', name: 'ClassifierDefault' },
-      { text: '訓練模型', name: 'TrainModel' },
-      { text: '圖片辨識(自訂)', name: 'ClassifierCustom' },
-    ]
-
-    return { handleClickLogo, routeLists }
-  },
-}
+  }
 </script>
