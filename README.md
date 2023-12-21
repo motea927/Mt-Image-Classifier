@@ -1,6 +1,6 @@
 # :art: mt-image-classifier
 
-Demo：https://609a392a6cb88e0008e3b71b--mt-image-classifier.netlify.app/
+Demo：https://mt-image-classifier.netlify.app/
 
 基於 **Vue 3** 所製作，可自行訓練辨識模型之圖片分類辨識!
 
